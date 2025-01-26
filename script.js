@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     const products = [
-        { name: "منتج 1", price: "50$", link: "https://example.com/product1", images: ["product1-1.jpg", "product1-2.jpg", "product1-3.jpg"] },
+        { name: "ساعة يد الكترونية", price: "4.32$", link: "https://https://s.click.aliexpress.com/e/_oE0uE2D/product1", images: ["product1-1.jpg", "product1-2.jpg", "product1-3.jpg"] },
         { name: "منتج 2", price: "70$", link: "https://example.com/product2", images: ["product2-1.jpg", "product2-2.jpg", "product2-3.jpg"] },
         { name: "منتج 3", price: "30$", link: "https://example.com/product3", images: ["product3-1.jpg", "product3-2.jpg", "product3-3.jpg"] },
         { name: "منتج 4", price: "90$", link: "https://example.com/product4", images: ["product4-1.jpg", "product4-2.jpg", "product4-3.jpg"] },
