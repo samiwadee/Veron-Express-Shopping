@@ -4,133 +4,238 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Veron Express Shopping</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* CSS - تخصيص الألوان حسب الشعار */
+        /* تخصيص الألوان */
         :root {
-            --main-color: #e83e8c; /* اللون الوردي الأساسي - يمكن تغييره */
+            --main-color: #e83e8c;
             --secondary-color: #ff69b4;
+            --dark-color: #2E2E2E;
         }
 
+        /* التنسيق العام */
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
             background: #f8f9fa;
         }
 
+        /* الهيدر */
         .header {
             background: var(--main-color);
-            padding: 1rem;
+            padding: 1rem 2rem;
             color: white;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
+        /* الشعار */
+        .logo img {
+            height: 50px;
+            width: auto;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+
+        /* شريط البحث */
+        .search-bar {
+            flex: 1;
+            max-width: 600px;
+            display: flex;
+            background: white;
+            border-radius: 30px;
+            padding: 5px 15px;
+        }
+
+        #searchInput {
+            border: none;
+            outline: none;
+            flex: 1;
+            padding: 8px;
+            font-size: 16px;
+            background: transparent;
+        }
+
+        .search-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--main-color);
+            font-size: 18px;
+            padding: 0 10px;
+        }
+
+        /* قسم المنتجات */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
             padding: 2rem;
+            margin-top: 20px;
         }
 
+        /* بطاقة المنتج */
         .product-card {
             background: white;
-            border-radius: 10px;
+            border-radius: 15px;
             padding: 1rem;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             transition: transform 0.3s;
             cursor: pointer;
+            position: relative;
         }
 
         .product-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
         }
 
-        .product-images {
-            position: relative;
-            overflow: hidden;
+        .discount-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--secondary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
         }
 
         .product-image {
             width: 100%;
             height: 200px;
             object-fit: cover;
-            transition: opacity 0.3s;
+            border-radius: 10px;
         }
 
-        .discount-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: var(--secondary-color);
-            color: white;
-            padding: 0.5rem;
-            border-radius: 5px;
+        .price {
+            color: var(--main-color);
+            font-weight: bold;
+            margin: 10px 0;
         }
 
+        del {
+            color: #666;
+            margin-right: 10px;
+        }
+
+        /* معلومات الاتصال */
         .contact-info {
             display: none;
             position: fixed;
             bottom: 20px;
             right: 20px;
             background: white;
-            padding: 1rem;
-            box-shadow: 0 0 15px rgba(0,0,0,0.2);
-            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 0 25px rgba(0,0,0,0.2);
+            border-radius: 15px;
+            z-index: 1000;
         }
 
-        /* إضافة المزيد من التنسيقات حسب الحاجة */
+        /* التجاوب مع الشاشات الصغيرة */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .search-bar {
+                width: 100%;
+                margin: 10px 0;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
     <header class="header">
-        <h1>Veron Express Shopping</h1>
+        <!-- الشعار -->
+        <div class="logo">
+            <img src="logo.png" alt="شعار Veron">
+        </div>
+
+        <!-- شريط البحث -->
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="ابحث عن منتج...">
+            <button class="search-btn" onclick="searchProducts()">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+
+        <!-- زر الاتصال -->
         <button onclick="showContact()">اتصل بنا</button>
     </header>
 
+    <!-- المنتجات -->
     <div class="products-grid">
-        <!-- مثال لمنتج -->
+        <!-- منتج 1 -->
         <div class="product-card" onclick="window.location.href='https://s.click.aliexpress.com/e/_oD6F5It'">
-            <div class="product-images">
-                <span class="discount-badge">60% خصم</span>
-                <img src="product1.jpg" class="product-image" alt="product1">
-            </div>
+            <span class="discount-badge">60% خصم</span>
+            <img src="product1.jpg" class="product-image" alt="جراب هاتف">
             <h3>جراب الهاتف المزود بحامل مغناطيسي</h3>
-            <p class="price">YER 379.35 <del>YER 654.04</del></p>
+            <p class="price"><del>YER 654.04</del> YER 379.35</p>
         </div>
 
-        <!-- يمكن إضافة المزيد من المنتجات -->
- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+        <!-- منتج 2 (مثال) -->
+        <div class="product-card" onclick="window.location.href='رابط_المنتج'">
+            <span class="discount-badge">50% خصم</span>
+            <img src="product2.jpg" class="product-image" alt="ساعة ذكية">
+            <h3>ساعة ذكية بشاشة AMOLED</h3>
+            <p class="price"><del>YER 120,000</del> YER 60,000</p>
+        </div>
+    </div>
 
-<div id="contactBox" class="contact-info">
-    <p onclick="copyToClipboard('info@veron.com')">
-        <i class="fas fa-envelope"></i>
-        البريد الإلكتروني: info@veron.com
-    </p>
-    <p onclick="copyToClipboard('+967736006070')">
-        <i class="fas fa-phone"></i>
-        هاتف: +967736006070
-    </p>
-</div>
+    <!-- معلومات الاتصال -->
+    <div id="contactBox" class="contact-info">
+        <p onclick="copyToClipboard('info@veron.com')">
+            <i class="fas fa-envelope"></i>
+            البريد الإلكتروني: info@veron.com
+        </p>
+        <p onclick="copyToClipboard('+967736006070')">
+            <i class="fas fa-phone"></i>
+            هاتف: +967736006070
+        </p>
+    </div>
 
     <script>
-        // JavaScript للتأثيرات والتفاعلية
+        // وظيفة إظهار/إخفاء معلومات الاتصال
         function showContact() {
             const contactBox = document.getElementById('contactBox');
             contactBox.style.display = contactBox.style.display === 'block' ? 'none' : 'block';
         }
 
-        // تأثيرات الصور عند التمرير
+        // وظيفة البحث
+        function searchProducts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const products = document.querySelectorAll('.product-card');
+            
+            products.forEach(product => {
+                const productName = product.querySelector('h3').innerText.toLowerCase();
+                product.style.display = productName.includes(searchTerm) ? 'block' : 'none';
+            });
+        }
+
+        // نسخ المعلومات عند النقر
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('تم النسخ: ' + text);
+            });
+        }
+
+        // تأثيرات التمرير
         window.addEventListener('scroll', () => {
             document.querySelectorAll('.product-card').forEach(card => {
                 const cardTop = card.getBoundingClientRect().top;
-                if (cardTop < window.innerHeight) {
+                if (cardTop < window.innerHeight * 0.9) {
                     card.style.opacity = '1';
                 }
             });
         });
-
-        // يمكن إضافة المزيد من التأثيرات هنا
     </script>
 </body>
 </html>
