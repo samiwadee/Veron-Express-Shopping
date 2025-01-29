@@ -1,45 +1,136 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Veron Express Shopping</title>
-    <link rel="stylesheet" href="styles.css">
-    <script defer src="script.js"></script>
+    <style>
+        /* CSS - تخصيص الألوان حسب الشعار */
+        :root {
+            --main-color: #e83e8c; /* اللون الوردي الأساسي - يمكن تغييره */
+            --secondary-color: #ff69b4;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            background: #f8f9fa;
+        }
+
+        .header {
+            background: var(--main-color);
+            padding: 1rem;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-images {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: opacity 0.3s;
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--secondary-color);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+
+        .contact-info {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            border-radius: 10px;
+        }
+
+        /* إضافة المزيد من التنسيقات حسب الحاجة */
+    </style>
 </head>
 <body>
-
-    <header>
-        <div class="logo">
-            <img src="logo.jpg" alt="شعار المتجر">
-            <h1>Veron Express Shopping</h1>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#">الرئيسية</a></li>
-                <li><a href="#">المنتجات</a></li>
-                <li><a href="#">اتصل بنا</a></li>
-            </ul>
-        </nav>
+    <header class="header">
+        <h1>Veron Express Shopping</h1>
+        <button onclick="showContact()">اتصل بنا</button>
     </header>
 
-    <section class="hero">
-        <h2>أفضل المنتجات بأفضل الأسعار</h2>
-        <p>تسوق الآن واستمتع بأفضل العروض</p>
-    </section>
-
-    <section class="products">
-        <div class="product">
-            <img src="product1.jpg" alt="منتج 1">
-            <h3>ساعة يد الكترونية</h3>
-            <p>D18 Smart Watch Men Women Smartwatch Blood Pressure Waterproof Digital Watches Sports Fitness Tracker Watch for apple watch band</p>
-            <a href="https://s.click.aliexpress.com/e/_oE0uE2D/product1" class="buy-btn">عرض المنتج</a>
+    <div class="products-grid">
+        <!-- مثال لمنتج -->
+        <div class="product-card" onclick="window.location.href='https://s.click.aliexpress.com/e/_oD6F5It'">
+            <div class="product-images">
+                <span class="discount-badge">60% خصم</span>
+                <img src="product1.jpg" class="product-image" alt="product1">
+            </div>
+            <h3>جراب الهاتف المزود بحامل مغناطيسي</h3>
+            <p class="price">YER 379.35 <del>YER 654.04</del></p>
         </div>
 
-    <footer>
-        <p>البريد الإلكتروني: <a href="mailto:info@store.com">info@store.com</a></p>
-        <p>رقم الاتصال: <a href="tel:+967736006070">+967736006070</a></p>
-    </footer>
+        <!-- يمكن إضافة المزيد من المنتجات -->
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
+<div id="contactBox" class="contact-info">
+    <p onclick="copyToClipboard('info@veron.com')">
+        <i class="fas fa-envelope"></i>
+        البريد الإلكتروني: info@veron.com
+    </p>
+    <p onclick="copyToClipboard('+967736006070')">
+        <i class="fas fa-phone"></i>
+        هاتف: +967736006070
+    </p>
+</div>
+
+    <script>
+        // JavaScript للتأثيرات والتفاعلية
+        function showContact() {
+            const contactBox = document.getElementById('contactBox');
+            contactBox.style.display = contactBox.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // تأثيرات الصور عند التمرير
+        window.addEventListener('scroll', () => {
+            document.querySelectorAll('.product-card').forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                if (cardTop < window.innerHeight) {
+                    card.style.opacity = '1';
+                }
+            });
+        });
+
+        // يمكن إضافة المزيد من التأثيرات هنا
+    </script>
 </body>
 </html>
